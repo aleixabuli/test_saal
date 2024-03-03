@@ -1,5 +1,7 @@
 ﻿//using Domain.Service.Contracts.TextProcess;
 //using Domain.Service.TextProcess;
+using Domain.Service.Contracts.Delivery;
+using Domain.Service.Delivery;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infra.Common.Extensions
@@ -11,6 +13,10 @@ namespace Infra.Common.Extensions
             //services
             //    .AddTransient<ITextProcessService, TextProcessService>()
             //    ;
+
+            services
+                .AddTransient<IProductService, ProductService>()
+                ;
 
             return services;
         }

@@ -10,4 +10,10 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Application.Delivery\Application.FoodDelivery.csproj" />
+    <ProjectReference Include="..\Domain.Service\Domain.Service.csproj" />
+    <ProjectReference Include="..\Infra.FoodDelivery.Persistence\Infra.FoodDelivery.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>

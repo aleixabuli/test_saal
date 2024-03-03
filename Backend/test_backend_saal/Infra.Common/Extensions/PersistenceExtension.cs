@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Domain.Repository.Contracts.FoodDelivery;
+using Infra.FoodDelivery.Persistence.Model;
+using Infra.FoodDelivery.Persistence.Repository;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Infra.Common.Extensions
 {
@@ -6,6 +9,11 @@ namespace Infra.Common.Extensions
     {
         public static IServiceCollection AddPersistenceDependencyInjection(this IServiceCollection services)
         {
+            services
+                .AddTransient<IProductRepository, ProductRepository>()
+                .AddDbContext<IFoodDeliveryContext, FoodDeliveryContext>();
+                ;
+
             return services;
         }
     }
