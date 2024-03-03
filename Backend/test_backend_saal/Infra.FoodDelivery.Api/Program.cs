@@ -1,3 +1,5 @@
+using Infra.Common.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +8,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+// Add dependency injection
+builder.Services.AddApplicationDependencyInjection();
+builder.Services.AddDomainDependencyInjection();
+builder.Services.AddPersistenceDependencyInjection();
 
 var app = builder.Build();
 
