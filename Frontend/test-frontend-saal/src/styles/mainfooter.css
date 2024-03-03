@@ -1,0 +1,7 @@
+footer{
+    position:relative;
+    height: 125px;
+    background: rgb(60,47,0);
+    background: linear-gradient(0deg,  0%, rgba(198,137,0,1) 35%, rgba(60,47,0,0.38277309214701505));
+    bottom: 0px;
+}

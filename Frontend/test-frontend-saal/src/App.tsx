@@ -1,10 +1,13 @@
 import React from 'react';
 import './styles/App.css';
+import {ShowHeaderComponent} from "./components/MainHeader";
+import { ShowDeliveryComponent } from './components/DeliveryComponent';
 
 function App() {
   return (
-    <div className="App">
-      hello world
+    <div id="divApp">
+      <ShowHeaderComponent/>
+      <ShowDeliveryComponent/>
     </div>
   );
 }

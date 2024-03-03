@@ -1,0 +1,75 @@
+
+#buttonStartDelivery{
+    margin:auto;
+    /*background-color: rgb(154, 90, 0);
+    border:none;
+    color:white;
+    cursor: pointer;
+    font-size: 1.2em;
+    text-align: center;*/
+    margin:auto;
+    position:absolute;
+    top:0px;
+    left:50%;
+    border-radius: 0.2em;
+    transform: translate(-50%, 50%);
+}
+
+
+#deliveryDiv{
+    position:relative;
+    margin:10px;
+    
+}
+#deliveryDiv article{
+    padding: 10px;
+    width: 300px;
+    border-width: 1px;
+    border-color: rgb(57, 0, 0);
+    border-style: solid;
+    display:inline-block;
+    margin:10px;
+}
+.divSuperiorArticle *{
+    margin: 5px;
+}
+
+#divProducts label{
+    font-size:1.25em;
+}
+
+#divProducts img{
+    margin:auto;
+    background-position: center;
+    background-size: contain;
+    text-align: center;
+}
+.divQuantityProduct{
+    display: inline-block;
+    position: relative;
+    padding:5px;
+    height: 100px;
+    width: 165px;
+}
+.divQuantityProduct .divQuantityProductWithLabel{
+    position:absolute;
+    top: 50px;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+
+#divBuy{
+    margin-top:10px;
+    position: relative;
+    
+    height: 100px;
+}
+
+#divBuy button{
+    position:absolute;
+    margin:10px;
+    top:10px;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+
