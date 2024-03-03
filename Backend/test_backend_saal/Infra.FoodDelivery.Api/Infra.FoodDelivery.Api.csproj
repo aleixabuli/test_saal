@@ -9,12 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Application.Delivery\Application.FoodDelivery.csproj" />
     <ProjectReference Include="..\Infra.Common\Infra.Common.csproj" />
+    <ProjectReference Include="..\Infra.FoodDelivery.Persistence\Infra.FoodDelivery.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,14 +1,26 @@
+using Application.FoodDelivery.Mapping;
 using Infra.Common.Extensions;
+using Infra.FoodDelivery.Api.ErrorExceptionHandler;
+using Infra.FoodDelivery.Persistence.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddAutoMapper(
+    typeof(Program).Assembly,
+    typeof(FoodDeliveryMapper).Assembly,
+    typeof(PersistenceFoodDeliveryMapper).Assembly
+    );
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Exception handling
+builder.Services.AddExceptionHandler<DefaultExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 // Add dependency injection
 builder.Services.AddApplicationDependencyInjection();

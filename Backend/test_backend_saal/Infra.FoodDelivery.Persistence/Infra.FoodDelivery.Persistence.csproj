@@ -7,8 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Domain.Repository.Contracts\Domain.Repository.Contracts.csproj" />
-    <ProjectReference Include="..\Domain.Service.Contracts\Domain.Service.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

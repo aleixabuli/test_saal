@@ -143,7 +143,7 @@ export const ShowDeliveryComponent = () => {
                     </div>
                 </div>
                 <div>
-                    <label>Price:</label> <label>10€</label>
+                    <label>Price per unit:</label> <label>10€</label>
                 </div>
                 <div>
                     <input type="checkbox" id="product_1" value="1" onChange={e => productCheckboxChange(e.target.id, e.target.value, e.target.checked)}/>
