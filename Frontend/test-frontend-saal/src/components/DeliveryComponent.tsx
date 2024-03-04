@@ -242,7 +242,7 @@ export const ShowDeliveryComponent = () => {
     <div id="divBuyProcess">
         <button id="buttonStartDelivery" className="standardButton" onClick={e => startDelivery(e)}>Click here to start your delivery!</button>
         <div id="divOrderDetails" hidden={true}>
-            <h2>Please, fullfill your order details:</h2>
+            <h2>Please, fulfill your order details:</h2>
             <div>
                 <label id="labelClientName">Your name:</label>
                 <input type="text" id="txtClientName"/>
