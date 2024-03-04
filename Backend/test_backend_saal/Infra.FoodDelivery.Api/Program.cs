@@ -46,15 +46,16 @@ else
 }
 
 app.UseCors(options =>
-    options.WithOrigins(
+    /*options.WithOrigins(
         "http://localhost:3000", 
         "http://172.31.24.215:5024", 
         "http://192.168.1.137:5024",
         "http://54.163.195.91:80",
-        "http://54.163.195.91:5024")
+        "http://54.163.195.91:5024")*/
+    options
     .AllowAnyMethod()
     .AllowAnyHeader()
-    //.AllowAnyOrigin()
+    .AllowAnyOrigin()
 );
 
 app.UseAuthorization();
