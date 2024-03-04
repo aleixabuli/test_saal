@@ -14,6 +14,7 @@ namespace Infra.Common.Extensions
                 .AddTransient<IGetAllProductsUseCase, GetAllProductsUseCase>()
                 .AddTransient<ICreateDeliveryOrderUseCase, CreateDeliveryOrderUseCase>()
                 .AddTransient<IGetDeliveryOrderByIdUseCase, GetDeliveryOrderByIdUseCase>()
+                .AddTransient<IDeliveryOrderGoToNextStatusUseCase, DeliveryOrderGoToNextStatusUseCase>()
                 ;
 
             return service;

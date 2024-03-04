@@ -10,5 +10,7 @@ namespace Domain.Service.Contracts.Delivery
             );
 
         Task<DeliveryOrderDomainModel> GetDeliveryOrderById(int orderId);
+
+        Task<bool> GoToNextStep(int orderId);
     }
 }

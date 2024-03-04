@@ -65,5 +65,22 @@ namespace Infra.FoodDelivery.Persistence.Repository
 
             return deliveryOrderDomain;
         }
+
+        public async Task<bool> GoToNextStep(int orderId)
+        {
+            var deliveryOrder = await _foodDeliveryContext.DeliveryOrders
+                .Where(d => d.Id == orderId)
+                .FirstOrDefaultAsync();
+
+            if (deliveryOrder == null)
+            {
+                throw new Exception($"Does not exists a {nameof(DeliveryOrder)} with the Id {orderId}.");
+            }
+
+            deliveryOrder.OrderStatus++;
+            await _foodDeliveryContext.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

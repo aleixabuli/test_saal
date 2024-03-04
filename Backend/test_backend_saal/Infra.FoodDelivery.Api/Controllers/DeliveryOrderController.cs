@@ -11,14 +11,17 @@ namespace Infra.FoodDelivery.Api.Controllers
     {
         private readonly ICreateDeliveryOrderUseCase _createDeliveryOrderUseCase;
         private readonly IGetDeliveryOrderByIdUseCase _getDeliveryOrderByIdUseCase;
+        private readonly IDeliveryOrderGoToNextStatusUseCase _deliveryOrderGoToNextStatusUseCase;
 
         public DeliveryOrderController(
             ICreateDeliveryOrderUseCase createDeliveryOrderUseCase,
-            IGetDeliveryOrderByIdUseCase getDeliveryOrderByIdUseCase
+            IGetDeliveryOrderByIdUseCase getDeliveryOrderByIdUseCase,
+            IDeliveryOrderGoToNextStatusUseCase deliveryOrderGoToNextStatusUseCase
             )
         {
             _createDeliveryOrderUseCase = createDeliveryOrderUseCase;
             _getDeliveryOrderByIdUseCase = getDeliveryOrderByIdUseCase;
+            _deliveryOrderGoToNextStatusUseCase = deliveryOrderGoToNextStatusUseCase;
         }
 
         /// <summary>
@@ -42,6 +45,18 @@ namespace Infra.FoodDelivery.Api.Controllers
         public async Task<IActionResult> GetDeliveryOrderById([FromQuery] int orderId)
         {
             var deliveryOrder = await _getDeliveryOrderByIdUseCase.Execute(orderId);
+            return Ok(deliveryOrder);
+        }
+
+        /// <summary>
+        /// This method is created to go to the next order status given an orderId
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        [HttpPatch("GoToNextStatus")]
+        public async Task<IActionResult> GoToNextStatus([FromQuery] int orderId)
+        {
+            var deliveryOrder = await _deliveryOrderGoToNextStatusUseCase.Execute(orderId);
             return Ok(deliveryOrder);
         }
     }

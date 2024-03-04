@@ -10,5 +10,7 @@ namespace Domain.Repository.Contracts.FoodDelivery
             );
 
         Task<DeliveryOrderDomainModel> GetDeliveryOrderById(int orderId);
+
+        Task<bool> GoToNextStep(int orderId);
     }
 }
