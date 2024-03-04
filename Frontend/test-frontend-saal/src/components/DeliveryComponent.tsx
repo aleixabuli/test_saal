@@ -3,8 +3,9 @@ import "./../styles/start_delivery.css";
 import ReactDOM from 'react-dom';
 export const ShowDeliveryComponent = () => {
     const[products, setProducts] = useState([]);
-    const baseUrl = "http://localhost:5024";
-
+    //const baseUrl = "http://localhost:5024";
+    const baseUrl = "http://54.163.195.91:5024";
+    
     const[createdOrder, setCreatedOrder] = useState({})
     //var createdOrder: DeliveryOrder= {} as DeliveryOrder;
     
