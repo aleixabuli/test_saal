@@ -3,23 +3,32 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.FoodDelivery.Api", "Infra.FoodDelivery.Api\Infra.FoodDelivery.Api.csproj", "{A8CD5ED0-DC7D-46C0-8861-9FFAD74B0546}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.FoodDelivery.Api", "Infra.FoodDelivery.Api\Infra.FoodDelivery.Api.csproj", "{A8CD5ED0-DC7D-46C0-8861-9FFAD74B0546}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Domain.Service", "Test.Domain.Service\Test.Domain.Service.csproj", "{C8539B17-74A9-4369-8785-B0402116DAC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Domain.Service", "Test.Domain.Service\Test.Domain.Service.csproj", "{C8539B17-74A9-4369-8785-B0402116DAC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Common", "Infra.Common\Infra.Common.csproj", "{78A8B810-B8EA-4EF8-AB0E-5FC09FA7BBA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Common", "Infra.Common\Infra.Common.csproj", "{78A8B810-B8EA-4EF8-AB0E-5FC09FA7BBA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Service.Contracts", "Domain.Service.Contracts\Domain.Service.Contracts.csproj", "{301EF079-2087-4B82-9536-FE9890DC24DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Service.Contracts", "Domain.Service.Contracts\Domain.Service.Contracts.csproj", "{301EF079-2087-4B82-9536-FE9890DC24DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Service", "Domain.Service\Domain.Service.csproj", "{96071B39-4ADA-4C3B-8A2E-48904D82404F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Service", "Domain.Service\Domain.Service.csproj", "{96071B39-4ADA-4C3B-8A2E-48904D82404F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Model", "Domain.Model\Domain.Model.csproj", "{C3182EFC-B3A0-4529-B3DF-43DFDF75D970}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Model", "Domain.Model\Domain.Model.csproj", "{C3182EFC-B3A0-4529-B3DF-43DFDF75D970}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.FoodDelivery", "Application.Delivery\Application.FoodDelivery.csproj", "{C6CEF225-34A8-45CA-8219-82648D1961D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.FoodDelivery", "Application.Delivery\Application.FoodDelivery.csproj", "{C6CEF225-34A8-45CA-8219-82648D1961D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.FoodDelivery.Persistence", "Infra.FoodDelivery.Persistence\Infra.FoodDelivery.Persistence.csproj", "{0BFB1FAF-0E05-4A4D-BF63-661F9407B957}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.FoodDelivery.Persistence", "Infra.FoodDelivery.Persistence\Infra.FoodDelivery.Persistence.csproj", "{0BFB1FAF-0E05-4A4D-BF63-661F9407B957}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Repository.Contracts", "Domain.Repository.Contracts\Domain.Repository.Contracts.csproj", "{7AEA8689-C40C-40CA-BE73-553AE736252A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Repository.Contracts", "Domain.Repository.Contracts\Domain.Repository.Contracts.csproj", "{7AEA8689-C40C-40CA-BE73-553AE736252A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{6B1F20B8-2103-4090-806E-7EB0A511FC65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "postman", "postman", "{D0B697F9-EE50-4FDD-A96A-9396CD43D4FA}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\..\Downloads\SaalTest.postman_collection.json = ..\..\..\..\..\Downloads\SaalTest.postman_collection.json
+		..\..\..\..\..\Downloads\SaalTest_localhost Port 5024.postman_environment.json = ..\..\..\..\..\Downloads\SaalTest_localhost Port 5024.postman_environment.json
+		..\..\..\..\..\Downloads\SaalTest_Prod.postman_environment.json = ..\..\..\..\..\Downloads\SaalTest_Prod.postman_environment.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +75,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D0B697F9-EE50-4FDD-A96A-9396CD43D4FA} = {6B1F20B8-2103-4090-806E-7EB0A511FC65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1EA34D40-9A71-4248-818C-4D0280652ECA}
