@@ -140,8 +140,27 @@ export const ShowDeliveryComponent = () => {
     }
 
     const createOrder  = () => {
+        let txtClientName = document.getElementById("txtClientName") as HTMLInputElement;
+        let txtClientSurname = document.getElementById("txtClientSurname") as HTMLInputElement;
+        let txtDirection = document.getElementById("txtDirection") as HTMLInputElement;
+        let txtCity = document.getElementById("txtCity") as HTMLInputElement;
+        let txtCountry = document.getElementById("txtCountry") as HTMLInputElement;
+        let radiosPayOption = document.getElementsByName("payOption") as NodeListOf<HTMLInputElement>;
+        
         if(dataForOrderCreation.productIdAndQtList &&
-            dataForOrderCreation.productIdAndQtList.length > 0){
+            dataForOrderCreation.productIdAndQtList.length > 0 &&
+            txtClientName && 
+            txtClientSurname && 
+            txtDirection && 
+            txtCity &&
+            txtCountry && 
+            radiosPayOption &&
+            txtClientName.value.trim()!='' &&
+            txtClientSurname.value.trim()!='' &&
+            txtDirection.value.trim()!='' &&
+            txtCity.value.trim()!='' &&
+            txtCountry.value.trim()!=''
+            ){
             if (window.confirm('Are you sure you want to proceed your order?')) {
                 let divBuyProcess = document.getElementById("divBuyProcess");
                 let divOrderView_step2 = document.getElementById("divOrderView_step2");
@@ -149,19 +168,7 @@ export const ShowDeliveryComponent = () => {
                     divBuyProcess.hidden = true;
                     divOrderView_step2.hidden = false;
                 }
-                let txtClientName = document.getElementById("txtClientName") as HTMLInputElement;
-                let txtClientSurname = document.getElementById("txtClientSurname") as HTMLInputElement;
-                let txtDirection = document.getElementById("txtDirection") as HTMLInputElement;
-                let txtCity = document.getElementById("txtCity") as HTMLInputElement;
-                let txtCountry = document.getElementById("txtCountry") as HTMLInputElement;
-                let radiosPayOption = document.getElementsByName("payOption") as NodeListOf<HTMLInputElement>;
-                if(txtClientName && 
-                    txtClientSurname && 
-                    txtDirection && 
-                    txtCity &&
-                    txtCountry && 
-                    radiosPayOption){
-                }
+                
                 let radioButtonValue = getValueOfCheckedRadioButton(radiosPayOption) as string;
                 let newDeliveryOrder: DeliveryOrder = {} as DeliveryOrder;
                 newDeliveryOrder.ClientName = txtClientName.value;
@@ -189,7 +196,7 @@ export const ShowDeliveryComponent = () => {
                 // User do not confirm to do the order -> Do nothing
             }
         }else{
-            alert("First you must to select at least one product to order");
+            alert("First you must to select at least one product to order and fulfill all the required order data.");
         }
         
         
