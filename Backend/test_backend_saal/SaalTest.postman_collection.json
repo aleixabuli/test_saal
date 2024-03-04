@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "e6e2af63-237f-46f2-a279-141928e92fa0",
+		"name": "SaalTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8492498"
+	},
+	"item": [
+		{
+			"name": "Test",
+			"item": [
+				{
+					"name": "Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}:{{port}}/api/Test/Test",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Test",
+								"Test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "GetAllProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}:{{port}}/api/Products/GetAllProducts",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Products",
+								"GetAllProducts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DeliveryOrder",
+			"item": [
+				{
+					"name": "CreateOrder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"deliveryOrder\":{\r\n        \"ClientName\":\"clientTest\",\r\n        \"ClientSurname\":\"surnameTest\",\r\n        \"Direction\": \"test street n.8 1-3\",\r\n        \"City\": \"New York\",\r\n        \"Country\": \"USA\",\r\n        \"PayOption\": 2,\r\n        \"TotalToPay\": 36.50\r\n    },\r\n    \"productIdAndQtList\":[\r\n        {\r\n            \"id\":1,\r\n            \"quantity\":1\r\n        },\r\n        {\r\n            \"id\":2,\r\n            \"quantity\":1\r\n        },\r\n        {\r\n            \"id\":4,\r\n            \"quantity\":2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}:{{port}}/api/DeliveryOrder/CreateOrder",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"DeliveryOrder",
+								"CreateOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDeliveryOrderById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"deliveryOrder\":{\r\n        \"ClientName\":\"clientTest\",\r\n        \"ClientSurname\":\"surnameTest\",\r\n        \"Direction\": \"test street n.8 1-3\",\r\n        \"City\": \"New York\",\r\n        \"Country\": \"USA\",\r\n        \"PayOption\": 2,\r\n        \"TotalToPay\": 36.50\r\n    },\r\n    \"productIdAndQtList\":[\r\n        {\r\n            \"id\":1,\r\n            \"quantity\":1\r\n        },\r\n        {\r\n            \"id\":2,\r\n            \"quantity\":1\r\n        },\r\n        {\r\n            \"id\":4,\r\n            \"quantity\":2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}:{{port}}/api/DeliveryOrder/GetDeliveryOrderById?orderId=2",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"DeliveryOrder",
+								"GetDeliveryOrderById"
+							],
+							"query": [
+								{
+									"key": "orderId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDeliveryOrderById Copy",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"deliveryOrder\":{\r\n        \"ClientName\":\"clientTest\",\r\n        \"ClientSurname\":\"surnameTest\",\r\n        \"Direction\": \"test street n.8 1-3\",\r\n        \"City\": \"New York\",\r\n        \"Country\": \"USA\",\r\n        \"PayOption\": 2,\r\n        \"TotalToPay\": 36.50\r\n    },\r\n    \"productIdAndQtList\":[\r\n        {\r\n            \"id\":1,\r\n            \"quantity\":1\r\n        },\r\n        {\r\n            \"id\":2,\r\n            \"quantity\":1\r\n        },\r\n        {\r\n            \"id\":4,\r\n            \"quantity\":2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}:{{port}}/api/DeliveryOrder/GoToNextStatus?orderId=2",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"DeliveryOrder",
+								"GoToNextStatus"
+							],
+							"query": [
+								{
+									"key": "orderId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

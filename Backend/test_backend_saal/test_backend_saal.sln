@@ -25,9 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{6B1F20B8-2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "postman", "postman", "{D0B697F9-EE50-4FDD-A96A-9396CD43D4FA}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\..\Downloads\SaalTest.postman_collection.json = ..\..\..\..\..\Downloads\SaalTest.postman_collection.json
-		..\..\..\..\..\Downloads\SaalTest_localhost Port 5024.postman_environment.json = ..\..\..\..\..\Downloads\SaalTest_localhost Port 5024.postman_environment.json
-		..\..\..\..\..\Downloads\SaalTest_Prod.postman_environment.json = ..\..\..\..\..\Downloads\SaalTest_Prod.postman_environment.json
+		SaalTest.postman_collection.json = SaalTest.postman_collection.json
+		SaalTest_localhost Port 5024.postman_environment.json = SaalTest_localhost Port 5024.postman_environment.json
+		SaalTest_Prod.postman_environment.json = SaalTest_Prod.postman_environment.json
 	EndProjectSection
 EndProject
 Global
