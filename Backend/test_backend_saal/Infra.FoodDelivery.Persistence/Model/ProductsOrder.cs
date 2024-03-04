@@ -11,6 +11,8 @@ public partial class ProductsOrder
 
     public int ProductId { get; set; }
 
+    public int ProductQuantity { get; set; }
+
     public virtual DeliveryOrder DeliveryOrder { get; set; } = null!;
 
     public virtual Product Product { get; set; } = null!;

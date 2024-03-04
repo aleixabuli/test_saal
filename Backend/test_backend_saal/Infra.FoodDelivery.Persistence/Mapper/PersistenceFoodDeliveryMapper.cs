@@ -10,6 +10,10 @@ namespace Infra.FoodDelivery.Persistence.Mapper
         {
             CreateMap<Product, ProductDomainModel>();
             CreateMap<ProductDomainModel, Product>();
+
+            CreateMap<DeliveryOrder, DeliveryOrderDomainModel>();
+            CreateMap<DeliveryOrderDomainModel, DeliveryOrder>();
+
         }
     }
 }

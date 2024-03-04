@@ -1,19 +1,93 @@
 import React, {ButtonHTMLAttributes, useState} from 'react';
 import "./../styles/start_delivery.css";
+import ReactDOM from 'react-dom';
 export const ShowDeliveryComponent = () => {
+    const[products, setProducts] = useState([]);
+    const baseUrl = "http://localhost:5024";
 
-    type OrderToDelivery = {
-        productId: number;
+    var createdOrder: DeliveryOrder= {} as DeliveryOrder;
+    
+    type Product = {
+        Id: number,
+        Name: string,
+        UrlImage: string,
+        Price: number
+    }
+
+    type ProductIdAndQt = {
+        id: number;
         quantity: number;
     }
+    type DeliveryOrder = {
+        ClientName: string;
+        ClientSurname: string;
+        Direction: string;
+        City: string;
+        Country: string;
+        PayOption: number;
+        TotalToPay: number;
+        OrderStatus: number;
+    }
+    type DataForOrderCreation =
+    {
+        deliveryOrder: DeliveryOrder;
+        productIdAndQtList: ProductIdAndQt[];
+    }
+    
 
-    var orderToDeliveryArray = [] as OrderToDelivery[]
+    var dataForOrderCreation = {} as DataForOrderCreation
 
-    function findTheOrderByProductId(order: OrderToDelivery, prodId: number){
-        return order.productId== prodId;
+    const onQuantityProductChange = (
+        inputId: string, 
+        valueQuantity: string) =>
+    {
+        let prodId = parseInt(inputId.split("_")[1]);
+
+        for (let indexDeliveryArray = 0; indexDeliveryArray<dataForOrderCreation.productIdAndQtList.length - 1; indexDeliveryArray++){
+            let order = dataForOrderCreation.productIdAndQtList[indexDeliveryArray];
+            if(order.id == prodId){
+                dataForOrderCreation.productIdAndQtList[indexDeliveryArray].quantity = parseInt(valueQuantity);
+            }
+        }
     }
 
-    
+    const productCheckboxChange = (
+        productId: string, 
+        value: string, 
+        checked:boolean) =>
+    {
+        let prodId = parseInt(productId.split("_")[1]);
+
+        let inputQuantity = document.getElementById("inputQuantityProduct_"+value) as HTMLInputElement;
+        let divQuantityProductWithLabel = document.getElementById("divQuantityProductWithLabel_"+value) as HTMLDivElement;
+        if(inputQuantity && divQuantityProductWithLabel){
+            if(checked){
+                inputQuantity.value = "1";
+                inputQuantity.min = "1";
+                inputQuantity.max = "100";
+                divQuantityProductWithLabel.hidden = false;
+
+                let orderToDelivery = 
+                { 
+                    id: prodId, 
+                    quantity: parseInt(inputQuantity.value) 
+                } as ProductIdAndQt;
+
+                if(!dataForOrderCreation.productIdAndQtList){
+                    dataForOrderCreation.productIdAndQtList = [] as ProductIdAndQt[];
+                }
+                dataForOrderCreation.productIdAndQtList.push(orderToDelivery);
+            }else{
+                inputQuantity.value = "0";
+                inputQuantity.min = "0";
+                inputQuantity.max = "0";
+                divQuantityProductWithLabel.hidden = true;
+
+                dataForOrderCreation.productIdAndQtList = dataForOrderCreation.productIdAndQtList.filter(order => order.id != prodId);
+            }
+        }
+        
+    }
 
     const startDelivery  = (e: React.MouseEvent<HTMLButtonElement>) => {
         let divOrderDetails = document.getElementById("divOrderDetails");
@@ -29,62 +103,42 @@ export const ShowDeliveryComponent = () => {
         
         let button = e.target as HTMLButtonElement;
         button.hidden = true;
+        getAllProducts();
     }
 
+    function getAllProducts(){
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", baseUrl+"/api/Products/GetAllProducts", true);
+        xhr.onload = function (e) {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    let response = JSON.parse(xhr.responseText);
 
-
-    const productCheckboxChange  = (
-        productId: string, 
-        value: string, 
-        checked:boolean) => 
-    {
-        let prodId = parseInt(productId.split("_")[1]);
-
-        let inputQuantity = document.getElementById("inputQuantityProduct_"+value) as HTMLInputElement;
-        let divQuantityProductWithLabel = document.getElementById("divQuantityProductWithLabel_"+value) as HTMLDivElement;
-        if(inputQuantity && divQuantityProductWithLabel){
-            if(checked){
-                inputQuantity.value = "1";
-                inputQuantity.min = "1";
-                inputQuantity.max = "100";
-                divQuantityProductWithLabel.hidden = false;
-
-                let orderToDelivery = 
-                { 
-                    productId: prodId, quantity: parseInt(inputQuantity.value) 
-                } as OrderToDelivery;
-                orderToDeliveryArray.push(orderToDelivery)
-
-            }else{
-                inputQuantity.value = "0";
-                inputQuantity.min = "0";
-                inputQuantity.max = "0";
-                divQuantityProductWithLabel.hidden = true;
-
-                
-
-                orderToDeliveryArray = orderToDeliveryArray.filter(order => order.productId != prodId);
+                    if(response != null && response.productsArray != null){
+                        setProducts(response.productsArray);
+                    }
+                    
+                } else {
+                    console.error(xhr.statusText);
+                }
             }
-        }
-        
+        };
+        xhr.onerror = function (e) {
+            console.error(xhr.statusText);
+        };
+        xhr.send(null);
     }
 
-    const onQuantityProductChange = (
-        inputId: string, 
-        valueQuantity: string) =>
-    {
-        let prodId = parseInt(inputId.split("_")[1]);
-
-        for (let indexDeliveryArray = 0; indexDeliveryArray<orderToDeliveryArray.length; indexDeliveryArray++){
-            let order = orderToDeliveryArray[indexDeliveryArray];
-            if(order.productId == prodId){
-                orderToDeliveryArray[indexDeliveryArray].quantity = parseInt(valueQuantity);
+    function getValueOfCheckedRadioButton(radiobuttons: NodeListOf<HTMLInputElement>){
+        for (var i = 0, length = radiobuttons.length - 1; i < length; i++) {
+            if (radiobuttons[i].checked) {
+              return radiobuttons[i].value;
             }
-        }
+          }
     }
 
     const createOrder  = () => {
-        if(orderToDeliveryArray.length > 0){
+        if(dataForOrderCreation.productIdAndQtList.length > 0){
             if (window.confirm('Are you sure you want to proceed your order?')) {
                 let divBuyProcess = document.getElementById("divBuyProcess");
                 let divOrderView_step2 = document.getElementById("divOrderView_step2");
@@ -92,9 +146,43 @@ export const ShowDeliveryComponent = () => {
                     divBuyProcess.hidden = true;
                     divOrderView_step2.hidden = false;
                 }
-                console.log(orderToDeliveryArray);
+                let txtClientName = document.getElementById("txtClientName") as HTMLInputElement;
+                let txtClientSurname = document.getElementById("txtClientSurname") as HTMLInputElement;
+                let txtDirection = document.getElementById("txtDirection") as HTMLInputElement;
+                let txtCity = document.getElementById("txtCity") as HTMLInputElement;
+                let txtCountry = document.getElementById("txtCountry") as HTMLInputElement;
+                let radiosPayOption = document.getElementsByName("payOption") as NodeListOf<HTMLInputElement>;
+                if(txtClientName && 
+                    txtClientSurname && 
+                    txtDirection && 
+                    txtCity &&
+                    txtCountry && 
+                    radiosPayOption){
+                }
+                let radioButtonValue = getValueOfCheckedRadioButton(radiosPayOption) as string;
+                let newDeliveryOrder: DeliveryOrder = {} as DeliveryOrder;
+                newDeliveryOrder.ClientName = txtClientName.value;
+                newDeliveryOrder.ClientSurname = txtClientSurname.value;
+                newDeliveryOrder.Direction = txtDirection.value;
+                newDeliveryOrder.City = txtCity.value;
+                newDeliveryOrder.Country = txtCountry.value;
+                newDeliveryOrder.PayOption = parseInt(radioButtonValue);
+                newDeliveryOrder.TotalToPay = 0;
+
+                for(let index = 0; index < dataForOrderCreation.productIdAndQtList.length - 1; index++){
+                    let actualProductIdAndQt = dataForOrderCreation.productIdAndQtList[index];
+
+                    let productFound = products.find((prod) => {return (prod as Product).Id == actualProductIdAndQt.id});
+                    if(productFound){
+                        let product = productFound as Product;
+                        newDeliveryOrder.TotalToPay += product.Price;
+                    }
+                }
+
+                dataForOrderCreation.deliveryOrder = newDeliveryOrder;
+                sendOrderToCreate();
             } else {
-                // Do nothing
+                // User do not confirm to do the order -> Do nothing
             }
         }else{
             alert("First you must to select at least one product to order");
@@ -103,12 +191,33 @@ export const ShowDeliveryComponent = () => {
         
     }
 
+    function sendOrderToCreate(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                let response = JSON.parse(this.responseText);
+                createdOrder = response;
+            }
+        };
+        xhttp.open("POST", baseUrl+"/api/DeliveryOrder/CreateOrder", true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(dataForOrderCreation));
+    }
+
     return (
 <div id="deliveryDiv">
     <div id="divBuyProcess">
         <button id="buttonStartDelivery" className="standardButton" onClick={e => startDelivery(e)}>Click here to start your delivery!</button>
         <div id="divOrderDetails" hidden={true}>
             <h2>Please, fullfill your order details:</h2>
+            <div>
+                <label id="labelClientName">Your name:</label>
+                <input type="text" id="txtClientName"/>
+            </div>
+            <div>
+                <label id="labelClientName">Your surname:</label>
+                <input type="text" id="txtClientSurname"/>
+            </div>
             <div>
                 <label id="labelDirection">Direction:</label>
                 <input type="text" id="txtDirection"/>
@@ -128,30 +237,31 @@ export const ShowDeliveryComponent = () => {
                     <label htmlFor="radioByCash">By cash:</label><input type="radio" id="radioByCash" name = "payOption" value="1" defaultChecked/>
                     <label htmlFor="radioByCard" >By card:</label><input type="radio" id="radioByCard" name = "payOption" value="2"/>
                 </fieldset>
-                
             </div>
         </div>
         <div id="divProducts" hidden={true}>
-            <article>
-                <div className='divSuperiorArticle'>
-                    <img src="https://cookinglsl.com/wp-content/uploads/2014/11/whole-roasted-chicken-with-potatoes-2-1.jpg" height={100} width={100} />
-                    <div className='divQuantityProduct'>
-                        <div className='divQuantityProductWithLabel' id="divQuantityProductWithLabel_1" hidden={true}>
-                            <label>Quantity:</label>
-                            <input type="number" defaultValue={0} min={0} max={0} id="inputQuantityProduct_1" onChange={e => onQuantityProductChange(e.target.id, e.target.value)}/>
+            {products.map((actualProduct, index)=>
+            (
+                <article key={(actualProduct as Product).Id}>
+                    <div className='divSuperiorArticle'>
+                        <img src={(actualProduct as Product).UrlImage} height={100} width={100} />
+                        <div className='divQuantityProduct'>
+                            <div className='divQuantityProductWithLabel' id={"divQuantityProductWithLabel_"+(actualProduct as Product).Id} hidden={true}>
+                                <label>Quantity:</label>
+                                <input type="number" defaultValue={0} min={0} max={0} id={"inputQuantityProduct_" + (actualProduct as Product).Id} onChange={e => onQuantityProductChange(e.target.id, e.target.value)}/>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <label>Price per unit:</label> <label>10€</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="product_1" value="1" onChange={e => productCheckboxChange(e.target.id, e.target.value, e.target.checked)}/>
-                    <label htmlFor="product_1">Chicken with potatoes</label>
-                </div>
-                
-            </article>
-
+                    <div>
+                        <label>Price per unit:</label> <label>{(actualProduct as Product).Price}€</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id={"product_"+(actualProduct as Product).Id} value={(actualProduct as Product).Id} onChange={e => productCheckboxChange(e.target.id, e.target.value, e.target.checked)}/>
+                        <label htmlFor={"product_"+(actualProduct as Product).Id}>{(actualProduct as Product).Name}</label>
+                    </div>
+                    
+                </article>
+            ))}
             
         </div>
         <div id="divBuy" hidden={true}>

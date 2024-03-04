@@ -5,6 +5,8 @@ using Infra.FoodDelivery.Persistence.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors();
+
 // Add services to the container.
 
 builder.Services.AddAutoMapper(
@@ -42,6 +44,18 @@ else
 {
     app.Urls.Add("http://172.31.24.215:5024");
 }
+
+app.UseCors(options =>
+    options.WithOrigins(
+        "http://localhost:3000", 
+        "http://172.31.24.215:5024", 
+        "http://192.168.1.137:5024",
+        "http://54.163.195.91:80",
+        "http://54.163.195.91:5024")
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    //.AllowAnyOrigin()
+);
 
 app.UseAuthorization();
 

@@ -19,12 +19,13 @@ namespace Application.FoodDelivery.UseCase
             _foodDeliveryService = foodDeliveryService;
         }
 
-        public async Task<List<ProductResponse>> Execute()
+        public async Task<ProductsResponse> Execute()
         {
             var productsList = await _foodDeliveryService.GetAllProducts();
 
-            var orderOptionsListResponse = _mapper.Map<List<ProductResponse>>(productsList);
-            return orderOptionsListResponse;
+            var orderOptionsListResponse = _mapper.Map<List<ProductDTO>>(productsList);
+            var productsResponse = new ProductsResponse(orderOptionsListResponse);
+            return productsResponse;
         }
     }
 }

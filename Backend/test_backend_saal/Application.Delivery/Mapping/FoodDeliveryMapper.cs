@@ -8,8 +8,14 @@ namespace Application.FoodDelivery.Mapping
     {
         public FoodDeliveryMapper()
         {
-            CreateMap<ProductDomainModel, ProductResponse>();
-            CreateMap<ProductResponse, ProductDomainModel>();
+            CreateMap<ProductDomainModel, ProductDTO>();
+            CreateMap<ProductDTO, ProductDomainModel>();
+
+            CreateMap<DeliveryOrderDTO, DeliveryOrderDomainModel>();
+            CreateMap<DeliveryOrderDomainModel, DeliveryOrderDTO>();
+
+            CreateMap<ProductIdAndQtDTO, ProductIdAndQtDomainModel>();
+            CreateMap<ProductIdAndQtDomainModel, ProductIdAndQtDTO>();
         }
     }
 }

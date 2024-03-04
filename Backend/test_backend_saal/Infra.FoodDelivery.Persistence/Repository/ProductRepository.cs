@@ -3,11 +3,6 @@ using Domain.Model.Delivery;
 using Domain.Repository.Contracts.FoodDelivery;
 using Infra.FoodDelivery.Persistence.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infra.FoodDelivery.Persistence.Repository
 {

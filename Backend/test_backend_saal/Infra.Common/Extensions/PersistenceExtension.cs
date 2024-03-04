@@ -11,6 +11,7 @@ namespace Infra.Common.Extensions
         {
             services
                 .AddTransient<IProductRepository, ProductRepository>()
+                .AddTransient<IDeliveryOrderRepository, DeliveryOrderRepository>()
                 .AddDbContext<IFoodDeliveryContext, FoodDeliveryContext>();
                 ;
 

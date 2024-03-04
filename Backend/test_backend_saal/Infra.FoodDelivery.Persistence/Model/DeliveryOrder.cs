@@ -21,5 +21,7 @@ public partial class DeliveryOrder
 
     public decimal TotalToPay { get; set; }
 
+    public int OrderStatus { get; set; }
+
     public virtual ICollection<ProductsOrder> ProductsOrders { get; set; } = new List<ProductsOrder>();
 }

@@ -10,12 +10,9 @@ namespace Infra.Common.Extensions
     {
         public static IServiceCollection AddDomainDependencyInjection(this IServiceCollection services)
         {
-            //services
-            //    .AddTransient<ITextProcessService, TextProcessService>()
-            //    ;
-
             services
                 .AddTransient<IProductService, ProductService>()
+                .AddTransient<IDeliveryOrderService, DeliveryOrderService>()
                 ;
 
             return services;

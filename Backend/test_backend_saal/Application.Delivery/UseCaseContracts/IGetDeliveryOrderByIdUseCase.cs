@@ -2,8 +2,8 @@
 
 namespace Application.FoodDelivery.UseCaseContracts
 {
-    public interface IGetAllProductsUseCase
+    public interface IGetDeliveryOrderByIdUseCase
     {
-        Task<ProductsResponse> Execute();
+        Task<DeliveryOrderDTO> Execute(int orderId);
     }
 }
