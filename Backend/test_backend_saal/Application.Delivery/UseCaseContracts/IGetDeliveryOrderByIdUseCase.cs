@@ -4,6 +4,6 @@ namespace Application.FoodDelivery.UseCaseContracts
 {
     public interface IGetDeliveryOrderByIdUseCase
     {
-        Task<DeliveryOrderDTO> Execute(int orderId);
+        Task<DeliveryOrderResponseDTO> Execute(int orderId);
     }
 }

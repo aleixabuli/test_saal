@@ -3,11 +3,6 @@ using Application.FoodDelivery.UseCaseContracts;
 using AutoMapper;
 using Domain.Model.Delivery;
 using Domain.Service.Contracts.Delivery;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.FoodDelivery.UseCase
 {
@@ -25,10 +20,10 @@ namespace Application.FoodDelivery.UseCase
             _deliveryOrderService = deliveryOrderService;
         }
 
-        public async Task<DeliveryOrderDTO> Execute(int orderId)
+        public async Task<DeliveryOrderResponseDTO> Execute(int orderId)
         {
             DeliveryOrderDomainModel deliveryOrderDomainModel = await _deliveryOrderService.GetDeliveryOrderById(orderId);
-            var deliveryOrderDTO = _mapper.Map<DeliveryOrderDTO>(deliveryOrderDomainModel);
+            var deliveryOrderDTO = _mapper.Map<DeliveryOrderResponseDTO>(deliveryOrderDomainModel);
 
             return deliveryOrderDTO;
         }

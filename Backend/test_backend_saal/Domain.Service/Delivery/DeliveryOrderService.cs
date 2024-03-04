@@ -18,6 +18,7 @@ namespace Domain.Service.Delivery
             List<ProductIdAndQtDomainModel> productIdAndQtDomainModelList
             )
         {
+            deliveryOrderDomainModel.OrderStatus = 1;
             var orderId = await _deliveryOrderRepository.CreateDeliveryOrder(
                 deliveryOrderDomainModel,
                 productIdAndQtDomainModelList

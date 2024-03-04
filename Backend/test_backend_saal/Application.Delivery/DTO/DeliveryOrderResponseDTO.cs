@@ -2,8 +2,11 @@
 
 namespace Application.FoodDelivery.DTO
 {
-    public class DeliveryOrderDTO
+    public class DeliveryOrderResponseDTO
     {
+        [JsonPropertyName(nameof(Id))]
+        public int Id { get; set; }
+
         [JsonPropertyName(nameof(ClientName))]
         public string ClientName { get; set; }
 

@@ -16,6 +16,9 @@ namespace Application.FoodDelivery.Mapping
 
             CreateMap<ProductIdAndQtDTO, ProductIdAndQtDomainModel>();
             CreateMap<ProductIdAndQtDomainModel, ProductIdAndQtDTO>();
+
+            CreateMap<DeliveryOrderResponseDTO, DeliveryOrderDomainModel>();
+            CreateMap<DeliveryOrderDomainModel, DeliveryOrderResponseDTO>();
         }
     }
 }

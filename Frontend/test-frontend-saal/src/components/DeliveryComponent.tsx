@@ -5,7 +5,8 @@ export const ShowDeliveryComponent = () => {
     const[products, setProducts] = useState([]);
     const baseUrl = "http://localhost:5024";
 
-    var createdOrder: DeliveryOrder= {} as DeliveryOrder;
+    const[createdOrder, setCreatedOrder] = useState({})
+    //var createdOrder: DeliveryOrder= {} as DeliveryOrder;
     
     type Product = {
         Id: number,
@@ -19,6 +20,7 @@ export const ShowDeliveryComponent = () => {
         quantity: number;
     }
     type DeliveryOrder = {
+        Id: number;
         ClientName: string;
         ClientSurname: string;
         Direction: string;
@@ -43,7 +45,7 @@ export const ShowDeliveryComponent = () => {
     {
         let prodId = parseInt(inputId.split("_")[1]);
 
-        for (let indexDeliveryArray = 0; indexDeliveryArray<dataForOrderCreation.productIdAndQtList.length - 1; indexDeliveryArray++){
+        for(let indexDeliveryArray = 0; indexDeliveryArray < dataForOrderCreation.productIdAndQtList.length; indexDeliveryArray++){
             let order = dataForOrderCreation.productIdAndQtList[indexDeliveryArray];
             if(order.id == prodId){
                 dataForOrderCreation.productIdAndQtList[indexDeliveryArray].quantity = parseInt(valueQuantity);
@@ -130,7 +132,7 @@ export const ShowDeliveryComponent = () => {
     }
 
     function getValueOfCheckedRadioButton(radiobuttons: NodeListOf<HTMLInputElement>){
-        for (var i = 0, length = radiobuttons.length - 1; i < length; i++) {
+        for(let i = 0, length = radiobuttons.length - 1; i < length; i++) {
             if (radiobuttons[i].checked) {
               return radiobuttons[i].value;
             }
@@ -138,7 +140,8 @@ export const ShowDeliveryComponent = () => {
     }
 
     const createOrder  = () => {
-        if(dataForOrderCreation.productIdAndQtList.length > 0){
+        if(dataForOrderCreation.productIdAndQtList &&
+            dataForOrderCreation.productIdAndQtList.length > 0){
             if (window.confirm('Are you sure you want to proceed your order?')) {
                 let divBuyProcess = document.getElementById("divBuyProcess");
                 let divOrderView_step2 = document.getElementById("divOrderView_step2");
@@ -169,17 +172,18 @@ export const ShowDeliveryComponent = () => {
                 newDeliveryOrder.PayOption = parseInt(radioButtonValue);
                 newDeliveryOrder.TotalToPay = 0;
 
-                for(let index = 0; index < dataForOrderCreation.productIdAndQtList.length - 1; index++){
+                for(let index = 0; index < dataForOrderCreation.productIdAndQtList.length; index++){
                     let actualProductIdAndQt = dataForOrderCreation.productIdAndQtList[index];
 
                     let productFound = products.find((prod) => {return (prod as Product).Id == actualProductIdAndQt.id});
                     if(productFound){
                         let product = productFound as Product;
-                        newDeliveryOrder.TotalToPay += product.Price;
+                        newDeliveryOrder.TotalToPay += product.Price * actualProductIdAndQt.quantity;
                     }
                 }
 
                 dataForOrderCreation.deliveryOrder = newDeliveryOrder;
+                console.info(dataForOrderCreation);
                 sendOrderToCreate();
             } else {
                 // User do not confirm to do the order -> Do nothing
@@ -196,12 +200,41 @@ export const ShowDeliveryComponent = () => {
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 let response = JSON.parse(this.responseText);
-                createdOrder = response;
+                let createdOrder = {} as DeliveryOrder;
+                createdOrder.Id = response;
+                setCreatedOrder(createdOrder);
+                window.setInterval(
+                    function(){
+                        getOrderById(createdOrder.Id)
+                      }, 10000);
             }
         };
         xhttp.open("POST", baseUrl+"/api/DeliveryOrder/CreateOrder", true);
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(dataForOrderCreation));
+    }
+
+    function getOrderById(orderId: number){
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", baseUrl+"/api/DeliveryOrder/GetDeliveryOrderById?orderId=" + orderId, true);
+        xhr.onload = function (e) {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    let response = JSON.parse(xhr.responseText);
+
+                    if(response){
+                        setCreatedOrder(response);
+                    }
+                    
+                } else {
+                    console.error(xhr.statusText);
+                }
+            }
+        };
+        xhr.onerror = function (e) {
+            console.error(xhr.statusText);
+        };
+        xhr.send(null);
     }
 
     return (
@@ -248,7 +281,7 @@ export const ShowDeliveryComponent = () => {
                         <div className='divQuantityProduct'>
                             <div className='divQuantityProductWithLabel' id={"divQuantityProductWithLabel_"+(actualProduct as Product).Id} hidden={true}>
                                 <label>Quantity:</label>
-                                <input type="number" defaultValue={0} min={0} max={0} id={"inputQuantityProduct_" + (actualProduct as Product).Id} onChange={e => onQuantityProductChange(e.target.id, e.target.value)}/>
+                                <input type="number" defaultValue={0} min={0} max={0} id={"inputQuantityProduct_" + (actualProduct as Product).Id} onChange={e => onQuantityProductChange(e.target.id, e.target.value)} pattern="^[0-9]*$"/>
                             </div>
                         </div>
                     </div>
@@ -271,15 +304,38 @@ export const ShowDeliveryComponent = () => {
 
     <div id="divOrderView_step2" hidden={true}>
         <div>
-            <label>Preparing: </label><label className='checkedOK'>✓</label>
+            
+            <label>Preparing: </label><label className={
+                (createdOrder as DeliveryOrder).OrderStatus==1 ? "processing" : "checkedOK"
+            }>
+                {(createdOrder as DeliveryOrder).OrderStatus==1 ? "▶" : "✓"}</label>
         </div>
         <div>
-            <label>Going to the destination: </label><label className="processing">▶</label>
+            <label>Going to the destination: </label><label className={
+                (createdOrder as DeliveryOrder).OrderStatus==1 
+                ? "notReady" 
+                : (createdOrder as DeliveryOrder).OrderStatus==2 
+                    ? "processing" 
+                    : "checkedOK"
+            }>{
+                (createdOrder as DeliveryOrder).OrderStatus==1 
+                ? "✗" 
+                : (createdOrder as DeliveryOrder).OrderStatus==2 
+                    ? "▶" 
+                    : "✓"
+            }</label>
         </div>
         <div>
-            <label>Delivered: </label><label className='notReady'>✗</label>
+            <label>Delivered: </label><label className={
+                (createdOrder as DeliveryOrder).OrderStatus>=3 
+                ? "checkedOK" 
+                : "notReady"
+            }>{
+                (createdOrder as DeliveryOrder).OrderStatus>=3 
+                ? "✓" 
+                : "✗"
+            }</label>
         </div>
-        
     </div>
     
 </div>

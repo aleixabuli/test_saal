@@ -2,6 +2,7 @@
 {
     public class DeliveryOrderDomainModel
     {
+        public int Id { get; set; }
         public string ClientName { get; set; }
         public string ClientSurname { get; set; }
         public string Direction { get; set; }
