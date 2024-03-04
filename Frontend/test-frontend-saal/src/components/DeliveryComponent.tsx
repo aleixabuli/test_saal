@@ -210,6 +210,7 @@ export const ShowDeliveryComponent = () => {
                 let createdOrder = {} as DeliveryOrder;
                 createdOrder.Id = response;
                 setCreatedOrder(createdOrder);
+                getOrderById(createdOrder.Id);
                 window.setInterval(
                     function(){
                         getOrderById(createdOrder.Id)
@@ -311,7 +312,26 @@ export const ShowDeliveryComponent = () => {
 
     <div id="divOrderView_step2" hidden={true}>
         <div>
-            
+            <h2>Order id: {(createdOrder as DeliveryOrder).Id}</h2>
+            <p>
+            ClientName: {(createdOrder as DeliveryOrder).ClientName}
+            </p>
+            <p>
+            ClientSurname: {(createdOrder as DeliveryOrder).ClientSurname}
+            </p>
+            <p>
+            Direction: {(createdOrder as DeliveryOrder).Direction}
+            </p>
+            <p>
+            City: {(createdOrder as DeliveryOrder).City}
+            </p>
+            <p>
+            Country: {(createdOrder as DeliveryOrder).Country}
+            </p>
+            <p>
+            TotalToPay: {(createdOrder as DeliveryOrder).TotalToPay}€
+            </p>
+            <br/>
             <label>Preparing: </label><label className={
                 (createdOrder as DeliveryOrder).OrderStatus==1 ? "processing" : "checkedOK"
             }>
