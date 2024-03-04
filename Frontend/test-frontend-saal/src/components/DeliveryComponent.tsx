@@ -132,7 +132,7 @@ export const ShowDeliveryComponent = () => {
     }
 
     function getValueOfCheckedRadioButton(radiobuttons: NodeListOf<HTMLInputElement>){
-        for(let i = 0, length = radiobuttons.length - 1; i < length; i++) {
+        for(let i = 0; i < radiobuttons.length; i++) {
             if (radiobuttons[i].checked) {
               return radiobuttons[i].value;
             }
